@@ -7,12 +7,12 @@ license or (at your option) any later version. The latest version
 of this license is in
 http://www.latex-project.org/lppl.txt
 # Usage
-Just use \usepackage{tblr-extras} after loading tabularray.
-Activate the libraries using \UseTblrLibrary command
+Just use `\usepackage{tblr-extras}` after loading tabularray.
+Activate the libraries using `\UseTblrLibrary` command.
 ## Caption Library
 Use caption package to typeset tabularray tall and long tabulars captions.
-Enable this library with \UseTblrLibrary{caption}
+Enable this library with `\UseTblrLibrary{caption}`
 ## Babel Library
-Translate contfoot and conthead to current babel language. 
-Curremtle only supports ngerman, french and spanish translations.
-Enable this library with \UseTblrLibrary{babel}
+Translate `contfoot` and `conthead` to current `babel` language. 
+Currently only supports ngerman, french and spanish translations.
+Enable this library with `\UseTblrLibrary{babel}`
