@@ -1,0 +1,74 @@
+% -----------------------------------------------------------------------
+%%% tblr-extras: Extra libraries for tabularray package.
+%%% Version    : 1.0 - 2024-02-10
+%%% Copyright  : 2024 (c) Manuel E. Merino <manuel.merino.pe@gmail.com>
+%%% License    : The LaTeX Project Public License 1.3c
+% -----------------------------------------------------------------------
+%%% LPPL 1.3c Notice: ---------------------------------------------------
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Manuel E. Merino
+% -----------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}[2018-04-01]
+\ProvidesPackage{tblr-extras}[2024/02/06 package tblr-extras]
+\RequirePackage{tabularray}
+%% ----------------------------------------------------------------------
+%% TblrLibrary caption - Use caption package to typeset tabularray tall
+%% and long tabulars captions.
+%% Empty token list checker wrapper
+\ExplSyntaxOn
+\prg_generate_conditional_variant:Nnn \tl_if_empty:n { e } { TF }
+\let \IfTokenListEmpty = \tl_if_empty:eTF
+\ExplSyntaxOff
+\NewTblrLibrary{caption}
+{%
+	\RequirePackage{caption}
+	%% Check if a KomaClass is loaded and issue a warning for caption position setup
+	\@ifundefined{KOMAClassName}
+	{}
+	{\PackageWarningNoLine{tblr-extras}{KOMAScript class detected. Setup caption position using 'captions=<option>'}}
+	\SetTblrOuter[talltblr,longtblr]{headsep=0pt}
+	\DefTblrTemplate{firsthead}{default}{%
+		\addtocounter{table}{-1}%
+		\IfTokenListEmpty{\InsertTblrText{entry}}{%
+				\captionsetup{type=table}
+				\caption{\InsertTblrText{caption}}%
+		}{%
+				\captionsetup{type=table}
+				\caption[\InsertTblrText{entry}]{\InsertTblrText{caption}}%
+		}%
+	}
+	\DefTblrTemplate{middlehead,lasthead}{default}{%
+		\addtocounter{table}{-1}%
+			\captionsetup{type=table}%
+			\caption[]{\InsertTblrText{caption} \UseTblrTemplate{conthead-text}{default}}%
+	}
+	\SetTblrTemplate{caption-lot}{empty}
+}
+%% ----------------------------------------------------------------------
+%% TblrLibrary babel - Translate contfoot and conthead to current babel
+%% language. Supports: ngerman, french and spanish translations.
+\NewTblrLibrary{babel}
+{%
+	\RequirePackage{babel,iflang}
+	\IfLanguagePatterns{spanish}{%
+		\DefTblrTemplate{contfoot-text}{default}{Continúa en la página siguiente}
+		\DefTblrTemplate{conthead-text}{default}{(Continuación)}
+		}{}
+	\IfLanguagePatterns{ngerman}{%
+		\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}
+		\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}
+		}{}
+	\IfLanguagePatterns{french}{%
+		\DefTblrTemplate{contfoot-text}{default}{Suite à la page suivante}
+		\DefTblrTemplate{conthead-text}{default}{(Suite)}
+		}{}
+}

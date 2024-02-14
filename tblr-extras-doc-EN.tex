@@ -1,0 +1,84 @@
+% -----------------------------------------------------------------------
+%%% tblr-extras-doc: Documentation for tblr-extras package.
+%%% Version    : 1.0 - 2024-02-10
+%%% Copyright  : 2024 (c) Manuel E. Merino <manuel.merino.pe@gmail.com>
+%%% License    : The LaTeX Project Public License 1.3c
+% -----------------------------------------------------------------------
+%%% LPPL 1.3c Notice: ---------------------------------------------------
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Manuel E. Merino
+% -----------------------------------------------------------------------
+\documentclass[a4paper,12pt]{article}
+\usepackage{fontspec}
+\setmainfont{montserrat}
+\setsansfont{montserrat}
+\setmonofont[Scale=MatchLowercase]{Roboto Mono}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{udepcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\Version}{1.0}
+
+\NewDocumentCommand{\tblrextras}{}{\textbf{\color{udep}tblr-extras}}
+
+\begin{document}
+	\begingroup%
+	\centering
+	\LARGE\textbf{Package \color{udep}tblr-extras}\par
+	\large Manuel E. Merino\par
+	\texttt{v\Version{} - 10/02/2024}\par
+	\normalsize Extra libraries for tabularray package.\par
+	\endgroup
+	\tableofcontents
+	\clearpage
+
+	\section{Introduction}
+	The \tblrextras{} package is a collection of extra libraries for the \texttt{tabularray} package.
+
+	Currently, it includes two libraries: caption and babel.
+
+	\section{Installation and use}
+
+	To install the \tblrextras{} package download and unzip the \texttt{tblr-extras.sty} file and place it in a folder accessible to \LaTeX{} (this can be the current working folder or a subfolder in the TEXMF directory).
+
+	To use the \tblrextras{} package add the following command to the preamble of your document: \verb|\usepackage{tblr-extras}|
+
+	\section{Available libraries}
+	\subsection{caption library}
+
+	The \tblrextras{} package changes the way \texttt{tabularray} typesets the captions of \texttt{talltblr} and \texttt{longtblr} environments, using the settings defined by the \texttt{caption} package.
+
+	To enable this library, use \verb*|\UseTblrLibrary{caption}| after loading \tblrextras{} and \texttt{tabularray} packages.
+
+	\subsection{babel library}
+
+	The \tblrextras{} package redefines the \texttt{conthead-text} and \textbf{contfoot-text} for the \texttt{longtblr} environment, using the current babel language.
+
+	Currently only spanish, ngerman and english variants are supported.
+
+	\section{Bug reports and suggestions}
+
+	For bug reports and suggestions, please use GitHub or send an email to manuel.merino.pe@gmail.com.
+
+	\section{License}
+
+	The \tblrextras{} package and all its included files are licensed under the LPPL v1.3c or later.
+
+	\vfill
+	\centering
+	\footnotesize \tblrextras{} -- {\copyright} 2024 Manuel E. Merino. Licensed under LPPL v1.3c.
+\end{document}
