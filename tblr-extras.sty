@@ -54,21 +54,27 @@
 	\SetTblrTemplate{caption-lot}{empty}
 }
 %% ----------------------------------------------------------------------
-%% TblrLibrary babel - Translate contfoot and conthead to current babel
+%% TblrLibrary babel - Translate contfoot and conthead to current babel/polyglossia
 %% language. Supports: ngerman, french and spanish translations.
 \NewTblrLibrary{babel}
 {%
-	\RequirePackage{babel,iflang}
-	\IfLanguagePatterns{spanish}{%
-		\DefTblrTemplate{contfoot-text}{default}{Continúa en la página siguiente}
-		\DefTblrTemplate{conthead-text}{default}{(Continuación)}
-		}{}
-	\IfLanguagePatterns{ngerman}{%
-		\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}
-		\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}
-		}{}
-	\IfLanguagePatterns{french}{%
-		\DefTblrTemplate{contfoot-text}{default}{Suite à la page suivante}
-		\DefTblrTemplate{conthead-text}{default}{(Suite)}
-		}{}
+	\AddToHook{begindocument/before}{%
+		\@ifpackageloaded{babel}{}{%
+			\@ifpackageloaded{polyglossia}{}{%
+				\RequirePackage{babel}
+			}
+		}
+		\addto\captionsspanish{%
+			\DefTblrTemplate{contfoot-text}{default}{Continúa en la página siguiente}%
+			\DefTblrTemplate{conthead-text}{default}{(Continuación)}%
+		}
+		\addto\captionsngerman{%
+			\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}%
+			\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}%
+		}
+		\addto\captionsfrench{%
+			\DefTblrTemplate{contfoot-text}{default}{Suite à la page suivante}%
+			\DefTblrTemplate{conthead-text}{default}{(Suite)}%
+		}
+	}
 }
