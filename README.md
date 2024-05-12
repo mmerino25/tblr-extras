@@ -13,6 +13,6 @@ Activate the libraries using `\UseTblrLibrary` command.
 Use caption package to typeset tabularray tall and long tabulars captions.
 Enable this library with `\UseTblrLibrary{caption}`
 ## Babel Library
-Translate `contfoot` and `conthead` to current `babel` language. 
-Currently only supports ngerman, french and spanish translations.
+Translate `contfoot` and `conthead` to current `babel`/`polyglossia` language. 
+Currently only supports ngerman, french, spanish, russian and ukrainian translations.
 Enable this library with `\UseTblrLibrary{babel}`

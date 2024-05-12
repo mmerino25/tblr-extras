@@ -55,7 +55,13 @@
 }
 %% ----------------------------------------------------------------------
 %% TblrLibrary babel - Translate contfoot and conthead to current babel/polyglossia
-%% language. Supports: ngerman, french and spanish translations.
+%% language. Supports: ngerman, french, spanish, russian and ukrainian translations.
+\newif\if@unicode@engine
+\ifdefined\luatexversion
+	\@unicode@enginetrue
+\else\ifdefined\XeTeXrevision
+	\@unicode@enginetrue
+\fi\fi
 \NewTblrLibrary{babel}
 {%
 	\AddToHook{begindocument/before}{%
@@ -76,5 +82,24 @@
 			\DefTblrTemplate{contfoot-text}{default}{Suite à la page suivante}%
 			\DefTblrTemplate{conthead-text}{default}{(Suite)}%
 		}
+		\if@unicode@engine
+			\addto\captionsrussian{%
+				\DefTblrTemplate{contfoot-text}{default}{Продолжение на следующей странице}%
+				\DefTblrTemplate{conthead-text}{default}{(продолжение)}%
+			}
+			\addto\captionsukrainian{%
+				\DefTblrTemplate{contfoot-text}{default}{Продовження на наступній сторінці}%
+				\DefTblrTemplate{conthead-text}{default}{(продовження)}%
+			}
+		\else
+			\addto\captionsrussian{%
+				\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre\ \cyrn\cyra\ \cyrs\cyrl\cyre\cyrd\cyru\cyryu\cyrshch\cyre\cyrishrt\ \cyrs\cyrt\cyrr\cyra\cyrn\cyri\cyrc\cyre}%
+				\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre)}%
+			}
+			\addto\captionsukrainian{%
+				\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya\ \cyrn\cyra\ \cyrn\cyra\cyrs\cyrt\cyru\cyrp\cyrn\cyrii\cyrishrt\ \cyrs\cyrt\cyro\cyrr\cyrii\cyrn\cyrc\cyrii}%
+				\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya)}%
+			}
+		\fi
 	}
 }
