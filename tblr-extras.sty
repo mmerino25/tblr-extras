@@ -70,36 +70,55 @@
 				\RequirePackage{babel}
 			}
 		}
-		\addto\captionsspanish{%
-			\DefTblrTemplate{contfoot-text}{default}{Continúa en la página siguiente}%
-			\DefTblrTemplate{conthead-text}{default}{(Continuación)}%
-		}
-		\addto\captionsngerman{%
-			\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}%
-			\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}%
-		}
-		\addto\captionsfrench{%
-			\DefTblrTemplate{contfoot-text}{default}{Suite à la page suivante}%
-			\DefTblrTemplate{conthead-text}{default}{(Suite)}%
-		}
-		\if@unicode@engine
-			\addto\captionsrussian{%
-				\DefTblrTemplate{contfoot-text}{default}{Продолжение на следующей странице}%
-				\DefTblrTemplate{conthead-text}{default}{(продолжение)}%
+		\ifdefined\captionsspanish
+			\addto\captionsspanish{%
+				\DefTblrTemplate{contfoot-text}{default}{Continúa en la página siguiente}%
+				\DefTblrTemplate{conthead-text}{default}{(Continuación)}%
 			}
-			\addto\captionsukrainian{%
-				\DefTblrTemplate{contfoot-text}{default}{Продовження на наступній сторінці}%
-				\DefTblrTemplate{conthead-text}{default}{(продовження)}%
+		\fi
+		\ifdefined\captionsngerman
+			\addto\captionsngerman{%
+				\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}%
+				\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}%
 			}
-		\else
-			\addto\captionsrussian{%
-				\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre\ \cyrn\cyra\ \cyrs\cyrl\cyre\cyrd\cyru\cyryu\cyrshch\cyre\cyrishrt\ \cyrs\cyrt\cyrr\cyra\cyrn\cyri\cyrc\cyre}%
-				\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre)}%
+		\fi
+		\ifdefined\captionsgerman
+			\addto\captionsgerman{%
+				\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}%
+				\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}%
 			}
-			\addto\captionsukrainian{%
-				\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya\ \cyrn\cyra\ \cyrn\cyra\cyrs\cyrt\cyru\cyrp\cyrn\cyrii\cyrishrt\ \cyrs\cyrt\cyro\cyrr\cyrii\cyrn\cyrc\cyrii}%
-				\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya)}%
+		\fi
+		\ifdefined\captionsfrench
+			\addto\captionsfrench{%
+				\DefTblrTemplate{contfoot-text}{default}{Suite à la page suivante}%
+				\DefTblrTemplate{conthead-text}{default}{(Suite)}%
 			}
+		\fi
+		\ifdefined\captionsrussian
+			\if@unicode@engine
+				\addto\captionsrussian{%
+					\DefTblrTemplate{contfoot-text}{default}{Продолжение на следующей странице}%
+					\DefTblrTemplate{conthead-text}{default}{(продолжение)}%
+				}
+			\else
+				\addto\captionsrussian{%
+					\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre\ \cyrn\cyra\ \cyrs\cyrl\cyre\cyrd\cyru\cyryu\cyrshch\cyre\cyrishrt\ \cyrs\cyrt\cyrr\cyra\cyrn\cyri\cyrc\cyre}%
+					\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre)}%
+				}
+			\fi
+		\fi
+		\ifdefined\captionsukrainian
+			\if@unicode@engine
+				\addto\captionsukrainian{%
+					\DefTblrTemplate{contfoot-text}{default}{Продовження на наступній сторінці}%
+					\DefTblrTemplate{conthead-text}{default}{(продовження)}%
+				}
+			\else
+				\addto\captionsukrainian{%
+					\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya\ \cyrn\cyra\ \cyrn\cyra\cyrs\cyrt\cyru\cyrp\cyrn\cyrii\cyrishrt\ \cyrs\cyrt\cyro\cyrr\cyrii\cyrn\cyrc\cyrii}%
+					\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya)}%
+				}
+			\fi
 		\fi
 	}
 }
