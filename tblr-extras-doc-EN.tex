@@ -1,6 +1,6 @@
 % -----------------------------------------------------------------------
 %%% tblr-extras-doc: Documentation for tblr-extras package.
-%%% Version    : 1.0 - 2024-02-10
+%%% Version    : 1.1 - 2024-05-13
 %%% Copyright  : 2024 (c) Manuel E. Merino <manuel.merino.pe@gmail.com>
 %%% License    : The LaTeX Project Public License 1.3c
 % -----------------------------------------------------------------------
@@ -31,7 +31,7 @@
 \usepackage{parskip}
 \usepackage[hidelinks]{hyperref}
 
-\newcommand{\Version}{1.0}
+\newcommand{\Version}{1.1}
 
 \NewDocumentCommand{\tblrextras}{}{\textbf{\color{udep}tblr-extras}}
 
@@ -40,7 +40,7 @@
 	\centering
 	\LARGE\textbf{Package \color{udep}tblr-extras}\par
 	\large Manuel E. Merino\par
-	\texttt{v\Version{} - 10/02/2024}\par
+	\texttt{v\Version{} - 13/06/2024}\par
 	\normalsize Extra libraries for tabularray package.\par
 	\endgroup
 	\tableofcontents
@@ -68,7 +68,7 @@
 
 	The \tblrextras{} package redefines the \texttt{conthead-text} and \textbf{contfoot-text} for the \texttt{longtblr} environment, using the current babel language.
 
-	Currently only spanish, ngerman and english variants are supported.
+	Currently only spanish, ngerman, russian, ukrainian and french variants are supported.
 
 	\section{Bug reports and suggestions}
 
@@ -77,6 +77,17 @@
 	\section{License}
 
 	The \tblrextras{} package and all its included files are licensed under the LPPL v1.3c or later.
+
+	\section{Changelog}
+
+	 v1.1 - Thanks sgolovan.
+		\begin{itemize}
+			\item Improved the babel library using language hooks.
+			\item Added support for polyglossia package.
+			\item Added ukrainian and russian translations.
+		\end{itemize}
+
+	v1.0 - Initial release.
 
 	\vfill
 	\centering

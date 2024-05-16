@@ -18,7 +18,7 @@
 % The Current Maintainer of this work is Manuel E. Merino
 % -----------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2018-04-01]
-\ProvidesPackage{tblr-extras}[2024/02/06 package tblr-extras]
+\ProvidesPackage{tblr-extras}[2024/05/13 package tblr-extras]
 \RequirePackage{tabularray}
 %% ----------------------------------------------------------------------
 %% TblrLibrary caption - Use caption package to typeset tabularray tall
@@ -34,7 +34,7 @@
 	%% Check if a KomaClass is loaded and issue a warning for caption position setup
 	\@ifundefined{KOMAClassName}
 	{}
-	{\PackageWarningNoLine{tblr-extras}{KOMAScript class detected. Setup caption position using 'captions=<option'}}
+	{\PackageWarningNoLine{tblr-extras}{KOMAScript class detected. Setup caption position using 'captions=option'}}
 	\SetTblrOuter[talltblr,longtblr]{headsep=0pt}
 	\DefTblrTemplate{firsthead}{default}{%
 		\addtocounter{table}{-1}%
@@ -56,6 +56,7 @@
 %% ----------------------------------------------------------------------
 %% TblrLibrary babel - Translate contfoot and conthead to current babel/polyglossia
 %% language. Supports: ngerman, french, spanish, russian and ukrainian translations.
+%% Check engine
 \newif\if@unicode@engine
 \ifdefined\luatexversion
 	\@unicode@enginetrue
