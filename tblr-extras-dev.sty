@@ -1,0 +1,242 @@
+% -----------------------------------------------------------------------
+%%% tblr-extras: Extra libraries for tabularray package.
+%%% Version    : 1.2 - 2024-05-30
+%%% Copyright  : 2024 (c) Manuel E. Merino <manuel.merino.pe@gmail.com>
+%%% License    : The LaTeX Project Public License 1.3c
+% -----------------------------------------------------------------------
+%%% LPPL 1.3c Notice: ---------------------------------------------------
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Manuel E. Merino
+% -----------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}[2018-04-01]
+\ProvidesPackage{tblr-extras-dev}[2024/05/30 package tblr-extras]
+\RequirePackage{tabularray}
+%% ----------------------------------------------------------------------
+%% TblrLibrary caption - Use caption package to typeset tabularray tall
+%% and long tabulars captions.
+%% This stuff needs to be ported to expl3 soon.
+\ExplSyntaxOn
+\prg_generate_conditional_variant:Nnn \tl_if_empty:n { e } { TF }
+\let \IfTokenListEmpty = \tl_if_empty:eTF
+\let \IfBoolFalse = \bool_if:NF
+\let \IfBoolTF = \bool_if:NTF
+\bool_new:N \l__tblrextras_table_title_below_bool
+\bool_set_false:N \l__tblrextras_table_title_below_bool
+\NewTblrLibrary{caption}
+{%
+	\RequirePackage{caption}
+	%% Check if a KomaClass is loaded and issue a warning for caption position setup
+	\@ifundefined{KOMAClassName}
+	{}
+	{\PackageWarningNoLine{tblr-extras}{KOMAScript class detected. Setup caption position using 'captions=option'}}
+	%%% Presetup
+	\NewDocumentCommand{\TblrCaptionBelow}{}{\bool_set_true:N \l__tblrextras_table_title_below_bool}
+	\NewDocumentCommand{\TblrCaptionAbove}{}{\bool_set_false:N \l__tblrextras_table_title_below_bool}
+	\SetTblrOuter[talltblr,longtblr]{headsep=0pt}
+	%%%%%%%%%% TEMPLATES
+	\DefTblrTemplate{firsthead}{default}{
+		\IfBoolTF \l__tblr_table_no_label_bool
+		% True NoLabel
+		{ }
+		% False NoLabel
+		{
+		\IfBoolTF \l__tblrextras_table_title_below_bool
+			% Cap Below
+			{ }
+			% Cap Above (default)
+			{
+			\addtocounter{table}{-1}
+			\captionsetup{type=table}
+			\IfTokenListEmpty{\InsertTblrText{entry}}{
+				\caption{\InsertTblrText{caption}}
+				\UseTblrTemplate{contfoot}{default}
+				}{
+				\caption[\InsertTblrText{entry}]{\InsertTblrText{caption}}
+				}
+			}
+		}
+	} % END FIRSTHEAD
+	\DefTblrTemplate{middlehead}{default}{
+		\IfBoolTF \l__tblr_table_no_label_bool
+		% True NoLabel
+		{ \UseTblrTemplate{conthead}{default} \vspace{4pt} }
+		% False NoLabel
+		{
+		\IfBoolTF \l__tblrextras_table_title_below_bool
+			% Cap Below
+			{ \UseTblrTemplate{conthead}{default} \vspace{4pt} }
+			% Cap Above (default)
+			{
+			\addtocounter{table}{-1}
+			\captionsetup{type=table}
+			\caption[]{\InsertTblrText{caption}~			\UseTblrTemplate{conthead-text}{default}}
+			}
+		}
+	}% END MIDDLEHEAD
+	\DefTblrTemplate{lasthead}{default}{
+		\IfBoolTF \l__tblr_table_no_label_bool
+		% True NoLabel
+		{ \UseTblrTemplate{conthead}{default} \vspace{4pt} }
+		% False NoLabel
+		{
+		\IfBoolTF \l__tblrextras_table_title_below_bool
+			% Cap Below
+			{ \UseTblrTemplate{conthead}{default} \vspace{4pt} }
+			% Cap Above (default)
+			{
+			\addtocounter{table}{-1}
+			\captionsetup{type=table}
+			\caption[]{\InsertTblrText{caption}~			\UseTblrTemplate{conthead-text}{default}}
+			}
+		}
+	}% END LASTHEAD
+	\DefTblrTemplate{firstfoot}{default}{
+		\IfBoolTF \l__tblr_table_no_label_bool
+		% True NoLabel
+		{ \UseTblrTemplate{contfoot}{default} }
+		% False NoLabel
+		{
+		\IfBoolTF \l__tblrextras_table_title_below_bool
+			% Cap Below
+			{
+			\addtocounter{table}{-1}
+			\captionsetup{type=table}
+			\caption[]{\InsertTblrText{caption}}
+			\UseTblrTemplate{contfoot}{default}
+			}
+			% Cap Above (default)
+			{
+			\UseTblrTemplate{contfoot}{default}
+			}
+		}
+	}% END FIRSTFOOT
+	\DefTblrTemplate{middlefoot}{default}{
+		\IfBoolTF \l__tblr_table_no_label_bool
+		% True NoLabel
+		{ \UseTblrTemplate{contfoot}{default} }
+		% False NoLabel
+		{
+		\IfBoolTF \l__tblrextras_table_title_below_bool
+			% Cap Below
+			{
+			\addtocounter{table}{-1}
+			\captionsetup{type=table}
+			\caption[]{\InsertTblrText{caption}}
+			\UseTblrTemplate{contfoot}{default}
+			}
+			% Cap Above (default)
+			{
+				\UseTblrTemplate{contfoot}{default}
+			}
+		}
+	}% END MIDDLEFOOT
+	\DefTblrTemplate{lastfoot}{default}{
+		\IfBoolTF \l__tblr_table_no_label_bool
+		% True NoLabel
+		{
+			\UseTblrTemplate{note}{default}
+			\UseTblrTemplate{remark}{default}
+		}
+		% False NoLabel
+		{
+		\IfBoolTF \l__tblrextras_table_title_below_bool
+			% Cap Below
+			{
+				\UseTblrTemplate{note}{default}
+				\UseTblrTemplate{remark}{default}
+				\addtocounter{table}{-1}
+				\captionsetup{type=table}	\IfTokenListEmpty{\InsertTblrText{entry}}{
+					\caption{\InsertTblrText{caption}}
+				}{
+					\caption[\InsertTblrText{entry}]{\InsertTblrText{caption}}
+				}
+			}
+			% Cap Above (default)
+			{
+				\UseTblrTemplate{note}{default}
+				\UseTblrTemplate{remark}{default}
+			}
+		}
+	}% END LASTFOOT
+	\SetTblrTemplate{caption-lot}{empty}
+}
+\ExplSyntaxOff
+%% ----------------------------------------------------------------------
+%% TblrLibrary babel - Translate contfoot and conthead to current babel/polyglossia
+%% language. Supports: ngerman, french, spanish, russian and ukrainian translations.
+%% Check engine
+\newif\if@unicode@engine
+\ifdefined\luatexversion
+	\@unicode@enginetrue
+\else\ifdefined\XeTeXrevision
+	\@unicode@enginetrue
+\fi\fi
+\NewTblrLibrary{babel}
+{%
+	\AddToHook{begindocument/before}{%
+		\@ifpackageloaded{babel}{}{%
+			\@ifpackageloaded{polyglossia}{}{%
+				\RequirePackage{babel}
+			}
+		}
+		\ifdefined\captionsspanish
+			\addto\captionsspanish{%
+				\DefTblrTemplate{contfoot-text}{default}{Continúa en la página siguiente}%
+				\DefTblrTemplate{conthead-text}{default}{(Continuación)}%
+			}
+		\fi
+		\ifdefined\captionsngerman
+			\addto\captionsngerman{%
+				\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}%
+				\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}%
+			}
+		\fi
+		\ifdefined\captionsgerman
+			\addto\captionsgerman{%
+				\DefTblrTemplate{contfoot-text}{default}{Fortsetzung auf der nächsten Seite}%
+				\DefTblrTemplate{conthead-text}{default}{(Fortsetzung)}%
+			}
+		\fi
+		\ifdefined\captionsfrench
+			\addto\captionsfrench{%
+				\DefTblrTemplate{contfoot-text}{default}{Suite à la page suivante}%
+				\DefTblrTemplate{conthead-text}{default}{(Suite)}%
+			}
+		\fi
+		\ifdefined\captionsrussian
+			\if@unicode@engine
+				\addto\captionsrussian{%
+					\DefTblrTemplate{contfoot-text}{default}{Продолжение на следующей странице}%
+					\DefTblrTemplate{conthead-text}{default}{(продолжение)}%
+				}
+			\else
+				\addto\captionsrussian{%
+					\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre\ \cyrn\cyra\ \cyrs\cyrl\cyre\cyrd\cyru\cyryu\cyrshch\cyre\cyrishrt\ \cyrs\cyrt\cyrr\cyra\cyrn\cyri\cyrc\cyre}%
+					\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrl\cyrzh\cyre\cyrn\cyri\cyre)}%
+				}
+			\fi
+		\fi
+		\ifdefined\captionsukrainian
+			\if@unicode@engine
+				\addto\captionsukrainian{%
+					\DefTblrTemplate{contfoot-text}{default}{Продовження на наступній сторінці}%
+					\DefTblrTemplate{conthead-text}{default}{(продовження)}%
+				}
+			\else
+				\addto\captionsukrainian{%
+					\DefTblrTemplate{contfoot-text}{default}{\cyr\CYRP\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya\ \cyrn\cyra\ \cyrn\cyra\cyrs\cyrt\cyru\cyrp\cyrn\cyrii\cyrishrt\ \cyrs\cyrt\cyro\cyrr\cyrii\cyrn\cyrc\cyrii}%
+					\DefTblrTemplate{conthead-text}{default}{(\cyr\cyrp\cyrr\cyro\cyrd\cyro\cyrv\cyrzh\cyre\cyrn\cyrn\cyrya)}%
+				}
+			\fi
+		\fi
+	}
+}
