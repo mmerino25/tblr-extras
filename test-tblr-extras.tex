@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage[margin=55mm]{geometry}
+\usepackage[esperanto]{babel}
+\usepackage[font = {small, sf}, labelfont = bf,
+singlelinecheck = off]{caption}
+\usepackage{tabularray}
+\usepackage{tblr-extras}
+\UseTblrLibrary{booktabs,  caption, babel}
+
+\usepackage{lipsum}
+
+\begin{document}
+	\begin{longtblr}[
+		caption = {My Table Title},
+		label = {tab:test},
+		]{colspec = {@{} X[j] @{}}}
+		\toprule
+		\lipsum[1] \\
+		\midrule
+		\lipsum[1] \\
+		\lipsum[1] \\
+		\bottomrule
+	\end{longtblr}
+\end{document}

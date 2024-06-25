@@ -1,6 +1,6 @@
 % -----------------------------------------------------------------------
 %%% tblr-extras-doc: Documentation for tblr-extras package.
-%%% Version    : 1.1 - 2024-05-13
+%%% Version    : 1.3 - 2024-06-25
 %%% Copyright  : 2024 (c) Manuel E. Merino <manuel.merino.pe@gmail.com>
 %%% License    : The LaTeX Project Public License 1.3c
 % -----------------------------------------------------------------------
@@ -17,7 +17,7 @@
 %
 % The Current Maintainer of this work is Manuel E. Merino
 % -----------------------------------------------------------------------
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 \usepackage{fontspec}
 \setmainfont{montserrat}
 \setsansfont{montserrat}
@@ -31,7 +31,7 @@
 \usepackage{parskip}
 \usepackage[hidelinks]{hyperref}
 
-\newcommand{\Version}{1.1}
+\newcommand{\Version}{1.3}
 
 \NewDocumentCommand{\tblrextras}{}{\textbf{\color{udep}tblr-extras}}
 
@@ -40,7 +40,7 @@
 	\centering
 	\LARGE\textbf{Package \color{udep}tblr-extras}\par
 	\large Manuel E. Merino\par
-	\texttt{v\Version{} - 13/06/2024}\par
+	\texttt{v\Version{} - 25/06/2024}\par
 	\normalsize Extra libraries for tabularray package.\par
 	\endgroup
 	\tableofcontents
@@ -55,32 +55,60 @@
 
 	To install the \tblrextras{} package download and unzip the \texttt{tblr-extras.sty} file and place it in a folder accessible to \LaTeX{} (this can be the current working folder or a subfolder in the TEXMF directory).
 
-	To use the \tblrextras{} package add the following command to the preamble of your document: \verb|\usepackage{tblr-extras}|
+	To use the \tblrextras{} package, add the following command to the preamble of your document: \verb|\usepackage{tblr-extras}|
 
 	\section{Available libraries}
 	\subsection{caption library}
 
-	The \tblrextras{} package changes the way \texttt{tabularray} typesets the captions of \texttt{talltblr} and \texttt{longtblr} environments, using the settings defined by the \texttt{caption} package.
+	This \tblrextras{} library changes the way \texttt{tabularray} typesets the captions of \texttt{talltblr} and \texttt{longtblr} environments, using the settings defined by the \texttt{caption} package.
 
 	To enable this library, use \verb*|\UseTblrLibrary{caption}| after loading \tblrextras{} and \texttt{tabularray} packages.
 
+	Since version 1.2, there is partial support for typesetting captions below tables. To enable this feature use the command \verb|\TblrCaptionBelow| to enable this feature. If you want to revert to captions above the table, use the command \verb|\TblrCaptionAbove|. Be aware that \texttt{longtblr} environments will position the caption hyperlink anchor in the lastfoot and the table will be listed in the List of Tables as if it was located in the last page occupied by the \texttt{longtblr}. environment.
+
 	\subsection{babel library}
+	Load this library using \verb|\UseTblrLibrary{babel}|
 
-	The \tblrextras{} package redefines the \texttt{conthead-text} and \textbf{contfoot-text} for the \texttt{longtblr} environment, using the current babel language.
+	The \tblrextras{} package redefines the \texttt{conthead-text} and \texttt{contfoot-text} for the \texttt{longtblr} environment, using the current babel language if this library is enabled.
 
-	Currently only spanish, ngerman, russian, ukrainian and french variants are supported.
+	Currently supported languages are:
+
+	\begin{itemize}
+		\item spanish
+		\item french
+		\item italian
+		\item portuguese
+		\item german (ngerman)
+		\item esperanto (only unicode engines)
+		\item romanian
+		\item dutch
+		\item danish (only unicode engines)
+		\item russian (pdflatex and unicode engines)
+		\item ukrainian (pdflatex and unicode engines)
+		\item galician
+		\item catalan
+		\item afrikaans
+	\end{itemize}
 
 	\section{Bug reports and suggestions}
 
-	For bug reports and suggestions, please use GitHub or send an email to manuel.merino.pe@gmail.com.
+	For bug reports, suggestions amd support, please use GitHub or send an email to manuel.merino.pe@gmail.com.
 
 	\section{License}
 
 	The \tblrextras{} package and all its included files are licensed under the LPPL v1.3c or later.
 
 	\section{Changelog}
+	 v1.3 - Fixed a bug with longtblr captions (thanks Zarko). Added afrikaans, catalan, danish, dutch, galician, esperanto, romanian translations.
 
-	 v1.1 - Thanks sgolovan.
+	 v1.2 - Added new languages and an extension to caption library
+	 \begin{itemize}
+	 	\item Improved the caption library to support \texttt{label=empty} and \texttt{entry=none}.
+	 	\item Added partial support for captions below the table using \verb|\TblrCaptionBelow| and to reverse the changes with \verb|\TblrCaptionAbove|.
+	 	\item Added support for portuguese and italian languages in the babel library.
+	 \end{itemize}
+
+	 v1.1 - This version uses code contributions by GitHub user \textbf{sgolovan}. Thanks for your contribution.
 		\begin{itemize}
 			\item Improved the babel library using language hooks.
 			\item Added support for polyglossia package.
